@@ -1,0 +1,15 @@
+{
+  "name": "devapi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "matheoleger <71370253+matheoleger@users.noreply.github.com>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server-raw.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
