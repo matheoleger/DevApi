@@ -13,6 +13,19 @@ const taskSchema = new Schema({
     isChecked: {
         type: Boolean,
         required: true
+    },
+    list: {
+        type: mongoose.Types.ObjectId,
+        required: true,
+        ref: 'List'
+    }
+}, {
+    timestamps: true
+})
+
+taskSchema.static({
+    findByListId(listId) {
+        return this.find({list: listId})
     }
 })
 

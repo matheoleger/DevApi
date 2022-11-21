@@ -2,6 +2,7 @@ import Koa from "koa"
 import bodyParser from "koa-bodyparser";
 import respond from "koa-respond";
 import '#config/database.js'
+import '#config/maildev.js'
 import {API_V1_ROUTER} from "#routes/index.js"
 
 const app = new Koa()

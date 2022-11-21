@@ -1,4 +1,5 @@
 import Task from "#components/task/taskModel.js"
+import {updateTask} from "#components/task/taskUseCasses.js"
 import Joi from 'joi'
 
 export async function getTasks(ctx) {
@@ -18,12 +19,24 @@ export async function getTaskById(ctx) {
     }
 }
 
+export async function getAllByList() {
+    try {
+        if(!ctx.params.listId) throw new Error('No id spplied')
+        const tasks = await TaskModel.findByListId(ctx.params.listId)
+        ctx.ok(tasks)
+
+    } catch(e) {
+
+    }
+}
+
 export async function create(ctx) {
     try {
         const taskValidationSchema = Joi.object({
             name: Joi.string().required(),
             description: Joi.string(),
-            isChecked: Joi.boolean().required()
+            isChecked: Joi.boolean().required(),
+            list: Joi.string().required()
         })
 
         const {error} = taskValidationSchema.validate(ctx.request.body)
@@ -57,7 +70,8 @@ export async function updateById(ctx) {
         const {error} = taskValidationSchema.validate(ctx.request.body)
         if(error) throw new Error(error)
 
-        ctx.body = await Task.findByIdAndUpdate(ctx.params.id, ctx.request.body, {runValidators: true})
+        // ctx.body = await Task.findByIdAndUpdate(ctx.params.id, ctx.request.body, {runValidators: true})
+        ctx.body = await updateTask(ctx.params.id, ctx.request.body, {runValidators: true})
 
     } catch(e) {
         ctx.badRequest({message: e.message})
