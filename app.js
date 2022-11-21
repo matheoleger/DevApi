@@ -1,7 +1,6 @@
 import Koa from "koa"
 import bodyParser from "koa-bodyparser";
 import respond from "koa-respond";
-// import Example from "#components/examples/example-model.js"
 import '#config/database.js'
 import {API_V1_ROUTER} from "#routes/index.js"
 
