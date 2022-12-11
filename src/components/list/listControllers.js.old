@@ -4,7 +4,7 @@ import Joi from 'joi'
 
 export async function getLists(ctx) {
     try {
-        ctx.body = await List.findByUserId(ctx.state.user.id) 
+        ctx.body = await List.find() 
 
     } catch(e) {
         ctx.badRequest({message: e.message})
@@ -33,10 +33,9 @@ export async function create(ctx) {
         const {error} = listValidationSchema.validate(ctx.request.body)
         if(error) throw new Error(error)
 
-        const userId = ctx.state.user.id
-        const newList = await List.create({...ctx.request.body, user: userId})
+        List.create(ctx.request.body)
 
-        ctx.body = newList
+        ctx.body = ctx.request.body
 
     } catch(e) {
         ctx.badRequest({message: e.message})
@@ -45,14 +44,7 @@ export async function create(ctx) {
 
 export async function deleteById(ctx) {
     try {
-        const deletedList = await List.findOneAndRemove({_id: ctx.params.id, user: ctx.state.user.id})
-
-        if(deletedTask) {
-            ctx.body = deletedList
-        } else {
-            ctx.status = 401
-        }
-
+        ctx.body = await List.findByIdAndDelete(ctx.params.id)
     } catch(e) {
         ctx.badRequest({message: e.message})
     }
@@ -61,21 +53,15 @@ export async function deleteById(ctx) {
 export async function updateById(ctx) {
     try {
         const listValidationSchema = Joi.object({
-            title: Joi.string(),
+            name: Joi.string().required(),
             description: Joi.string(),
-            isChecked: Joi.boolean()
+            isChecked: Joi.boolean().required()
         })
 
         const {error} = listValidationSchema.validate(ctx.request.body)
         if(error) throw new Error(error)
 
-        const updatedList = await List.findOneAndUpdate({_id: ctx.params.id, user: ctx.state.user.id}, ctx.request.body, {runValidators: true})
-
-        if(updatedList) {
-            ctx.body = updatedList
-        } else {
-            ctx.status = 401    
-        }
+        ctx.body = await List.findByIdAndUpdate(ctx.params.id, ctx.request.body, {runValidators: true})
 
     } catch(e) {
         ctx.badRequest({message: e.message})

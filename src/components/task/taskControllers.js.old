@@ -4,7 +4,7 @@ import Joi from 'joi'
 
 export async function getTasks(ctx) {
     try {
-        ctx.body = await Task.findByUserId(ctx.state.user.id)
+        ctx.body = await Task.find() 
 
     } catch(e) {
         ctx.badRequest({message: e.message})
@@ -42,8 +42,7 @@ export async function create(ctx) {
         const {error} = taskValidationSchema.validate(ctx.request.body)
         if(error) throw new Error(error)
 
-        const userId = ctx.state.user.id
-        Task.create({...ctx.request.body, user: userId})
+        Task.create(ctx.request.body)
 
         ctx.body = ctx.request.body
 
@@ -54,13 +53,7 @@ export async function create(ctx) {
 
 export async function deleteById(ctx) {
     try {
-        const deletedTask = await Task.findOneAndRemove({_id: ctx.params.id, user: ctx.state.user.id})
-
-        if(deletedTask) {
-            ctx.body = deletedTask
-        } else {
-            ctx.status = 401
-        }
+        ctx.body = await Task.findByIdAndDelete(ctx.params.id)
     } catch(e) {
         ctx.badRequest({message: e.message})
     }
@@ -69,23 +62,16 @@ export async function deleteById(ctx) {
 export async function updateById(ctx) {
     try {
         const taskValidationSchema = Joi.object({
-            name: Joi.string(),
+            name: Joi.string().required(),
             description: Joi.string(),
-            isChecked: Joi.boolean()
+            isChecked: Joi.boolean().required()
         })
 
         const {error} = taskValidationSchema.validate(ctx.request.body)
         if(error) throw new Error(error)
 
         // ctx.body = await Task.findByIdAndUpdate(ctx.params.id, ctx.request.body, {runValidators: true})
-        // ctx.body = await updateTask(ctx.params.id, ctx.request.body, {runValidators: true})
-        const updatedTask = await Task.findOneAndUpdate({_id: ctx.params.id, user: ctx.state.user.id}, ctx.request.body, {runValidators: true})
-
-        if(updatedTask) {
-            ctx.body = updatedTask
-        } else {
-            ctx.status = 401
-        }
+        ctx.body = await updateTask(ctx.params.id, ctx.request.body, {runValidators: true})
 
     } catch(e) {
         ctx.badRequest({message: e.message})
