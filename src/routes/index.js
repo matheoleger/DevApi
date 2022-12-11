@@ -9,6 +9,6 @@ const API_V1_ROUTER = new Router({prefix: '/api/v1'})
 API_V1_ROUTER.use(exampleRoutes.routes(), exampleRoutes.allowedMethods())
 API_V1_ROUTER.use(taskRoutes.routes(), taskRoutes.allowedMethods())
 API_V1_ROUTER.use(listRoutes.routes(), listRoutes.allowedMethods())
-API_V1_ROUTER.use(userRoutes.routes(), userRoutes.allowedMethods())
+API_V1_ROUTER.use('/users', userRoutes.routes(), userRoutes.allowedMethods())
 
 export {API_V1_ROUTER}

@@ -2,7 +2,7 @@ if(process.env.NODE_ENV === 'development') {
     const startMailDev = async () => {
         const { default: Maildev } = await import('maildev')
         const maildev = new Maildev({
-            basePathName: '/maildev'
+            basePathname: '/maildev'
         })
         maildev.listen((err, data) => {
             if(err) return console.log(`🛑 Failed to load maildev : ${e}`)
