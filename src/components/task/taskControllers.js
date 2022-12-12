@@ -87,10 +87,10 @@ export async function updateById(ctx) {
         const {error} = taskValidationSchema.validate(ctx.request.body)
         if(error) throw new Error(error)
 
-        const updatedTask = await Task.findOneAndUpdate({_id: ctx.params.id, user: ctx.state.user.id}, ctx.request.body, {runValidators: true})
+        const updatedTask = await Task.findOneAndUpdate({_id: ctx.params.id, user: ctx.state.user.id}, ctx.request.body, {runValidators: true, new: true})
 
         if(updatedTask) {
-            ctx.ok({...updatedTask._doc, name: ctx.request.body.name, isChecked: ctx.request.body.isChecked})
+            ctx.ok(updatedTask)
         } else {
             ctx.status = 401
         }

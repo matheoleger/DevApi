@@ -71,9 +71,9 @@ export async function modifyProfile(ctx) {
 
         if(error) throw new Error(error)
 
-        await User.findByIdAndUpdate(ctx.state.user.id, params, {runValidators: true})
+        const currentUser = await User.findByIdAndUpdate(ctx.state.user.id, params, {runValidators: true, new: true})
 
-        ctx.ok("Successfully modify your profile ;)")
+        ctx.ok(currentUser)
         
     } catch(e) {
         ctx.badRequest({message: e.message})

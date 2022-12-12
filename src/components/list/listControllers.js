@@ -76,10 +76,10 @@ export async function updateById(ctx) {
         const {error} = listValidationSchema.validate(ctx.request.body)
         if(error) throw new Error(error)
 
-        const updatedList = await List.findOneAndUpdate({_id: ctx.params.id, user: ctx.state.user.id}, ctx.request.body, {runValidators: true})
+        const updatedList = await List.findOneAndUpdate({_id: ctx.params.id, user: ctx.state.user.id}, ctx.request.body, {runValidators: true, new: true})
 
         if(updatedList) {
-            ctx.ok({...updatedList._doc, title: ctx.request.body.title, isChecked: ctx.request.body.isChecked});
+            ctx.ok(updatedList);
         } else {
             ctx.status = 401    
         }
