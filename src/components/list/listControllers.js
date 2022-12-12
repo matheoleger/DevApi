@@ -13,12 +13,17 @@ export async function getLists(ctx) {
 
 export async function getListById(ctx) {
     try {
-        ctx.body = await List.findById(ctx.params.id)
-        if ( !ctx. params.id) throw new Error( 'No id supplied')
-        const list = await List.findById(ctx.params.id).lean()
+        if (!ctx.params.id) throw new Error('There is not id...')
+        const list = await List.findOne({_id: ctx.params.id, user: ctx.state.user.id}).lean()
+
+        if(!list) {
+            ctx.status = 401;
+            return; 
+        }
+
         list.tasks = await Task.findByListId(ctx.params.id)
         if (!list) return ctx.notFound()
-        ctx.ok( list)
+        ctx.ok(list)
     } catch(e) {
         ctx.badRequest({message: e.message})
     }
@@ -46,8 +51,10 @@ export async function create(ctx) {
 export async function deleteById(ctx) {
     try {
         const deletedList = await List.findOneAndRemove({_id: ctx.params.id, user: ctx.state.user.id})
-
-        if(deletedTask) {
+        const deletedTaskById = await Task.remove({list: ctx.params.id});
+        console.log(deletedList)
+        if(deletedList) {
+            deletedList.tasks = deletedTaskById;
             ctx.body = deletedList
         } else {
             ctx.status = 401

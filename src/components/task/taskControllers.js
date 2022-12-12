@@ -1,4 +1,5 @@
 import Task from "#components/task/taskModel.js"
+import List from "#components/list/listModel.js"
 import {updateTask} from "#components/task/taskUseCasses.js"
 import Joi from 'joi'
 
@@ -13,7 +14,13 @@ export async function getTasks(ctx) {
 
 export async function getTaskById(ctx) {
     try {
-        ctx.body = await Task.findById(ctx.params.id)
+        const task = await Task.findOne({_id: ctx.params.id, user: ctx.state.user.id})
+
+        if(task) {
+            ctx.body = task;
+        } else {
+            ctx.status = 401;
+        }
     } catch(e) {
         ctx.badRequest({message: e.message})
     }
@@ -43,6 +50,10 @@ export async function create(ctx) {
         if(error) throw new Error(error)
 
         const userId = ctx.state.user.id
+        const currentList = await List.findOne({_id: ctx.request.body.list, user: userId})
+
+        if(!currentList) throw new Error("List doesn't belongs to current user !")
+
         Task.create({...ctx.request.body, user: userId})
 
         ctx.body = ctx.request.body
@@ -77,8 +88,6 @@ export async function updateById(ctx) {
         const {error} = taskValidationSchema.validate(ctx.request.body)
         if(error) throw new Error(error)
 
-        // ctx.body = await Task.findByIdAndUpdate(ctx.params.id, ctx.request.body, {runValidators: true})
-        // ctx.body = await updateTask(ctx.params.id, ctx.request.body, {runValidators: true})
         const updatedTask = await Task.findOneAndUpdate({_id: ctx.params.id, user: ctx.state.user.id}, ctx.request.body, {runValidators: true})
 
         if(updatedTask) {
