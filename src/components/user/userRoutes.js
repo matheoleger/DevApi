@@ -6,7 +6,6 @@ const users = new Router()
 
 users.post("/register", UserControllers.register)
 users.post("/login", UserControllers.login)
-// users.get("/profile", UserControllers.getProfile)
 users.get("/profile", isAuthenticatedWithUser, (ctx) => {
     ctx.ok({profile: ctx.state.user})
 })

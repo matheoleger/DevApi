@@ -11,7 +11,6 @@ const taskSchema = new Schema({
         type: mongoose.Types.ObjectId,
         required: true,
         ref: 'User'
-        // default: null
     },
     description: {
         type: String,

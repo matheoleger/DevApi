@@ -52,7 +52,7 @@ export async function deleteById(ctx) {
     try {
         const deletedList = await List.findOneAndRemove({_id: ctx.params.id, user: ctx.state.user.id})
         const deletedTaskById = await Task.remove({list: ctx.params.id});
-        console.log(deletedList)
+
         if(deletedList) {
             deletedList.tasks = deletedTaskById;
             ctx.body = deletedList
@@ -79,7 +79,7 @@ export async function updateById(ctx) {
         const updatedList = await List.findOneAndUpdate({_id: ctx.params.id, user: ctx.state.user.id}, ctx.request.body, {runValidators: true})
 
         if(updatedList) {
-            ctx.body = updatedList
+            ctx.ok({...updatedList._doc, title: ctx.request.body.title, isChecked: ctx.request.body.isChecked});
         } else {
             ctx.status = 401    
         }

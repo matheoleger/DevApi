@@ -1,6 +1,5 @@
 import Task from "#components/task/taskModel.js"
 import List from "#components/list/listModel.js"
-import {updateTask} from "#components/task/taskUseCasses.js"
 import Joi from 'joi'
 
 export async function getTasks(ctx) {
@@ -91,7 +90,7 @@ export async function updateById(ctx) {
         const updatedTask = await Task.findOneAndUpdate({_id: ctx.params.id, user: ctx.state.user.id}, ctx.request.body, {runValidators: true})
 
         if(updatedTask) {
-            ctx.body = updatedTask
+            ctx.ok({...updatedTask._doc, name: ctx.request.body.name, isChecked: ctx.request.body.isChecked})
         } else {
             ctx.status = 401
         }

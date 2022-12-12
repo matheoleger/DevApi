@@ -47,9 +47,6 @@ export async function login(ctx) {
 
         const currentUserByEmail = await User.findOne({email: value.email}).select('password') 
 
-        console.log(currentUserByEmail)
-        // console.log(currentUserByEmail.password)
-
         if(await argon2.verify(currentUserByEmail.password, value.password)) {
             const token = currentUserByEmail.generateJWT()
             ctx.ok({token})
