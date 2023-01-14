@@ -1,7 +1,10 @@
 // app global css in SCSS form
 
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900;1000&display=swap');
+
 body {
     color: $gray-1;
+    font-family: 'Mulish', 'Arial', 'Open Sans';
 }
 
 q-btn {

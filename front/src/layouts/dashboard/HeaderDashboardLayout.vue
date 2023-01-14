@@ -1,16 +1,16 @@
 <template>
-    <q-layout view="lHh Lpr lFf">
       <q-header elevated class="bg-white text-black">
         <q-toolbar>
           <q-toolbar-title>
-            Ynov Todo
+            <q-avatar>
+              <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-black.svg">
+            </q-avatar>
+          </q-toolbar-title>
+          <q-toolbar-title>
+            
           </q-toolbar-title>
         </q-toolbar>
       </q-header>
-      <q-page-container>
-        <router-view />
-      </q-page-container>
-    </q-layout>
 </template>
 <script setup>
 </script>

@@ -8,6 +8,8 @@ export async function register(ctx) {
         const registerValidationSchema = Joi.object({
             email: Joi.string().email().required(),
             password: Joi.string().min(6).required(),
+            firstName: Joi.string().required(),
+            lastName: Joi.string().required(),
             terms_and_conditions: Joi.boolean().valid(true).required()
         })
 
@@ -25,7 +27,7 @@ export async function register(ctx) {
         const user = await newUser.save()
         await sendWelcomeEmail(user, user.settings.validation_email_token)
         const token = user.generateJWT()
-        ctx.ok({ token })
+        ctx.ok({ user, token })
 
         if(error) throw new Error(error)
     } catch(e) {
@@ -45,7 +47,9 @@ export async function login(ctx) {
 
         if(error) throw new Error(error)
 
-        const currentUserByEmail = await User.findOne({email: value.email}).select('password') 
+        const currentUserByEmail = await User.findOne({email: value.email}).select('password')
+        
+        console.log(currentUserByEmail)
 
         if(await argon2.verify(currentUserByEmail.password, value.password)) {
             const token = currentUserByEmail.generateJWT()

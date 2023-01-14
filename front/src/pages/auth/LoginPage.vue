@@ -4,8 +4,7 @@
         <q-card-section class="shadow-sm">
             <q-input label="Email" type="email" outlined v-model="form.email"/>
             <q-input label="Mot de passe" type="password" outlined v-model="form.password"/>
-            <q-checkbox label="terms and conditions" v-model="form.terms_and_conditions"/>
-            <q-btn label="s'inscrire" @click="handleLogin" class="full-width" color="primary"/>
+            <q-btn label="Connexion" @click="handleLogin" class="full-width" color="primary"/>
             <p>Vous n'avez pas de compte ? <a href="/register">Inscrivez vous</a></p>
         </q-card-section>
     </div>
@@ -20,7 +19,6 @@ const router = useRouter()
 const form = ref({
   email: '',
   password: '',
-  terms_and_conditions: false
 })
 const handleLogin = async () => {
   try {

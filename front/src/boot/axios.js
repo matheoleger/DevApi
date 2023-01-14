@@ -9,7 +9,7 @@ const userStore = useUserStore()
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const api = axios.create({ baseURL: 'http://localhost:5000/api/v1' })
+const api = axios.create({ baseURL: 'http://localhost:5000/api/v1' });
 
 api.interceptors.request.use(response => {
   Loading.show()

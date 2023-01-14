@@ -1,0 +1,68 @@
+<template>
+    <q-dialog v-model="isOpened">
+        <q-card>
+            <q-card-section class="row items-center q-pb-none">
+            <div class="text-h6">Créer une liste</div>
+            <q-space />
+            <q-btn icon="close" flat round dense @onClick="onClose"/>
+            </q-card-section>
+            <q-card-section>
+                <q-input label="Title"/>
+                <q-input label="Description (optionel)" />
+            </q-card-section>
+            <q-card-section>
+                <q-btn @click="onValid">Créer</q-btn>
+            </q-card-section>
+        </q-card>
+    </q-dialog>
+</template>
+<script>
+
+    import {ref} from "vue"
+
+    export default {
+        name: "PopupForm",
+        model: {
+            prop: isOpened,
+            event: 'change'
+        },
+        props: {
+            isOpened: {
+                type: Boolean,
+                default: false,
+                required: false,
+            },
+            typeOfForm: {
+                type: String,
+                default: "create",
+                required: true
+            }
+        },
+        computed:{
+            model: {
+                get() { return this.isOpened },
+                set(newValue) { this.$emit('isOpened', newValue) } 
+            }
+        },
+        methods: {
+            onValid() {
+
+            },
+            // onClose() {
+            //     this.$emit('change:isOpened', false)
+            // }
+        }
+    }
+
+    // const openedDialog = ref(false);
+    
+    const newList = ref({
+        title: "",
+        description: ""
+    })
+
+    const onClose = () => {
+        this.$emit('change:isOpened', false)
+    }
+
+</script>

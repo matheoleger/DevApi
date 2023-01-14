@@ -1,7 +1,10 @@
 <template>
-    <q-layout view="lHh Lpr lFf">
+    <q-layout view="hHh LpR fFf">
         <HeaderDashboardLayout/>
         <ListsNavigationLayout/>
+        <q-page-container>
+            <router-view />
+        </q-page-container>
     </q-layout>
 </template>
 <script setup>

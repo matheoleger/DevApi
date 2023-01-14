@@ -1,13 +1,23 @@
 import { defineStore } from 'pinia'
-import { LocalStorage } from 'quasar'
-import { register, login } from 'src/services/users'
+import { LocalStorage, SessionStorage } from 'quasar'
+import { register, login, getUserProfile } from 'src/services/users'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    user: {}
+    user: {
+      // email: "",
+      // password: "",
+      // firstName: "John",
+      // lastName: "Doe",
+    }
   }),
-  getters: {},
+  getters: {
+    fullName: (state) => `${state.user.firstName} ${state.user.lastName}`
+  },
   actions: {
+    getJwtToken () {
+      return LocalStorage.getItem('token') || SessionStorage.getItem('token')
+    },
     async handleRegister (params) {
       try {
         const res = await register(params)
@@ -25,6 +35,19 @@ export const useUserStore = defineStore('user', {
         LocalStorage.clear()
         throw new Error(e)
       }
+    },
+    async getUserProfile () {
+
+      try {
+        // this.user = userInformations;
+        const res = await getUserProfile()
+        // console.log(res.data.profile);
+        return {firstName: res.data.profile.firstName, lastName: res.data.profile.lastName, email: res.data.profile.email, id: res.data.profile._id}
+      } catch(e) {
+        LocalStorage.clear()
+        throw new Error(e)
+      }
+
     }
   }
 })
