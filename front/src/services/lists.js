@@ -5,7 +5,7 @@ export const getAllLists = () => {
 }
 
 export const getListById = (id) => {
-    return api.get("/lists/:id", id)
+    return api.get(`/lists/${id}`)
 }
 
 export const createList = (params) => {

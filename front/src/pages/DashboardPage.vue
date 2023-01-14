@@ -9,7 +9,7 @@
     </div>
     <div v-else>
       <div v-for="(list, index) in listsStore.lists" v-bind:key="index" class="dashboard-list">
-        <div class="flex justify-between dashboard-list-title">
+        <div class="flex justify-between dashboard-list-title items-center">
           <h6 class="text-bold">{{ list.title }}</h6>
           <q-btn icon="more_horiz" flat round dense v-close-popup>
             <q-menu>
