@@ -15,8 +15,8 @@ import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter();
 
-const redirectDashboard = () => {
-  router.push({name: 'dashboard'})
+const redirectDashboard = async () => {
+ await router.push({name: 'dashboard'})
 }
 
 export default defineComponent({

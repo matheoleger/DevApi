@@ -3,8 +3,10 @@
     <q-header elevated class="bg-white text-black">
       <q-toolbar>
         <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+            <q-avatar rounded>
+              <img v-bind:src="'src/assets/logo.png'">
+            </q-avatar>
+          </q-toolbar-title>
         <router-link to="/login">
           Se connecter
         </router-link>
