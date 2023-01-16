@@ -4,7 +4,14 @@ import Joi from 'joi'
 
 export async function getLists(ctx) {
     try {
-        ctx.body = await List.findByUserId(ctx.state.user.id) 
+        // ctx.body = await List.findByUserId(ctx.state.user.id) 
+
+        const lists = await List
+        .aggregate()
+        .match({ user: { $eq: ctx.state.user._id}})
+        .lookup({ from: 'tasks', localField: '_id', foreignField: 'list', as: 'tasks' })
+        
+        ctx.body = lists
 
     } catch(e) {
         ctx.badRequest({message: e.message})

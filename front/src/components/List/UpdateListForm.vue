@@ -57,6 +57,7 @@ const onUpdate = async () => {
     await listsStore.updateList(modifiedListProps.listId, modifiedList.value);
     listsStore.lists = await listsStore.getLists(); 
     listsStore.currentList = await listsStore.getListById(modifiedListProps.listId);
+    onClose()
 }
 
 const onClose = () => {
