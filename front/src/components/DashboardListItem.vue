@@ -31,7 +31,7 @@
         </div>
         <div v-else style="padding: 1em;">
           <p style="font-size: 16px">Cette liste ne contient aucune tâches ajoutez en une depuis la liste</p>
-          <q-btn no-caps @click="() => redirectToList(list._id)">Voir ma liste</q-btn>
+          <q-btn no-caps @click="() => redirectToList(list._id)" class="show-list-btn">Voir ma liste</q-btn>
         </div>
     </div>
 </template>
@@ -88,7 +88,7 @@ await tasksStore.updateTask(taskId, params)
   text-align: center;
   font-size: 1.3em;
   width: inherit;
-  // margin-bottom: 2em;
+  margin-left: 8em;
 }
 
 .show-complete-list:hover {
@@ -102,5 +102,13 @@ await tasksStore.updateTask(taskId, params)
 
 .dashboard-list-title h6 {
   margin: 0.8em;
+}
+
+.show-list-btn {
+  margin-top: 10px;
+  background-color: $purple;
+  color: white;
+  font-weight: 700;
+  border-radius: 10px;
 }
 </style>

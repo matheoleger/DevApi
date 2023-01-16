@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="flex items-center column">
         <div class="flex justify-between items-center">
-          <div class="flex items-center">
-            <q-btn no-caps style="margin-right: 20px" @click="router.push({ name: 'dashboard' })">&lt;</q-btn>
+          <div class="flex items-center" style="width: 55em">
+            <q-btn no-caps unelevated class="btn-return" style="margin-right: 20px" @click="router.push({ name: 'dashboard' })" icon="arrow_back_ios_new"/>
             <h3 class="text-bold">{{ listsStore.currentList.title }}</h3>
           </div>
           <q-btn icon="more_horiz" flat round dense v-close-popup>
@@ -21,7 +21,9 @@
           <DeleteList :isOpened="isOpenedDeleteDialog" :listId="route.params.id" @onCloseInParent="onCloseDeleteDialog" @onDeleteInParent="onDeleteList"/>
           <UpdateListForm :isOpened="isOpenedUpdateListDialog" :listId="route.params.id" :title="listsStore.currentList.title" @onCloseInParent="onCloseUpdateListDialog"/>
         </div>
-        <q-btn @click="isOpenedCreateListForm = true" no-caps>+ Ajouter une tâche</q-btn>
+        <div style="width: 55em">
+          <q-btn @click="isOpenedCreateListForm = true" outline no-caps class="purple-btn-outline">+ Ajouter une tâche</q-btn>
+        </div>
         <CreateTaskForm :isOpened="isOpenedCreateListForm" :listId="route.params.id" @onCloseInParent="onCloseCreateListDialog"/>
         <div v-if="listsStore.currentList.tasks">
             <h4>Tâches - {{ tasksStore.tasksUnchecked.length }}</h4>
@@ -137,4 +139,12 @@
 //   .dashboard-list-title h3 {
 //     margin: 0.8em;
 //   }
+
+.btn-return {
+  margin: 0 20px;
+  background-color: $gray-6;
+  color: $gray-dove;
+  padding: 0.7em;
+  border-radius: 10px;
+}
 </style>
