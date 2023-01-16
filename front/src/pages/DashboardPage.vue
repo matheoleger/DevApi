@@ -33,7 +33,7 @@
 
         </div>
         <div v-else style="padding: 1em;">
-          <p style="font-size: 16px">Cette liste ne contient aucune tâches ajoutez en une depuis la liste</p>
+          <p style="font-size: 16px">Cette liste n'est pas éditable depuis cette page... Regardez votre liste en cliquant sur "Voir ma liste"</p>
           <q-btn no-caps @click="() => redirectToList(list._id)">Voir ma liste</q-btn>
         </div>
       </div>
