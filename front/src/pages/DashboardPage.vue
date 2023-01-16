@@ -95,15 +95,6 @@
     width: 33em;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.14);
-    margin-top: 10px;
-  }
-
-  .dashboard-list-title {
-    background-color: $gray-6;
-    border-radius: 10px 10px 0px 0px;
-  }
-
-  .dashboard-list-title h6 {
-    margin: 0.8em;
+    margin-top: 40px;
   }
 </style>

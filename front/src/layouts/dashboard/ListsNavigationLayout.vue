@@ -4,7 +4,7 @@
         <q-scroll-area class="fit">
         <div class="flex items-center justify-around">
             <h5 class="text-bold">Mes listes</h5>
-            <q-btn @click="isOpenedCreateListForm = true"> 
+            <q-btn outline @click="isOpenedCreateListForm = true" class="add-list-button"> 
                 + 
             </q-btn>
         </div>
@@ -89,5 +89,11 @@
     .list-element-selected {
         background-color: $gray-4;
         color: $purple;
+    }
+
+    .add-list-button {
+        border: 1px $purple solid;
+        color: $purple;
+        box-shadow: none;
     }
 </style>

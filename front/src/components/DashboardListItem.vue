@@ -26,7 +26,8 @@
             <q-checkbox v-model="task.isChecked" @click="() => onChangeIsChecked(task._id, {isChecked: task.isChecked})"/>
             <p>{{ task.name }}</p>
           </div>
-          <q-btn no-caps @click="() => redirectToList(list._id)">Voir la liste complète</q-btn>
+          <q-separator style="margin: 15px"/>
+          <a no-caps @click="() => redirectToList(list._id)" class="show-complete-list">Voir la liste complète</a>
         </div>
         <div v-else style="padding: 1em;">
           <p style="font-size: 16px">Cette liste ne contient aucune tâches ajoutez en une depuis la liste</p>
@@ -81,3 +82,25 @@ console.log("bonsoir oui ?", params)
 await tasksStore.updateTask(taskId, params)
 }
 </script>
+<style lang="scss">
+.show-complete-list {
+  cursor: pointer;
+  text-align: center;
+  font-size: 1.3em;
+  width: inherit;
+  // margin-bottom: 2em;
+}
+
+.show-complete-list:hover {
+  color: $purple;
+}
+
+.dashboard-list-title {
+  background-color: $gray-6;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.dashboard-list-title h6 {
+  margin: 0.8em;
+}
+</style>
