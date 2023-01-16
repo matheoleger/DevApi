@@ -7,3 +7,7 @@ export const createTask = (params) => {
 export const updateTask = (id, params) => {
     return api.put(`/tasks/${id}`, params)
 }
+
+export const deleteTask = (id) => {
+    return api.delete(`/tasks/${id}`)
+}

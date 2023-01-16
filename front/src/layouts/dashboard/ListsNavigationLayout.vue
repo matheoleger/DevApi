@@ -24,7 +24,7 @@
         </div>
         <div class="text-bold">
             <div v-if="listsStore.lists && listsStore.lists.length">
-                <div v-for="(list, index) in listsStore.lists" v-bind:key="index" class="cursor-pointer list-element">
+                <div v-for="(list, index) in listsStore.lists" v-bind:key="index" class="cursor-pointer list-element" @click="() => redirectToList(list._id)">
                     <p class="list-title">{{ list.title }}</p>
                 </div>
             </div>
@@ -37,15 +37,24 @@
 </template>
 <script setup>
     import { useListsStore } from "src/stores/lists-store"
+    import { useRoute, useRouter } from 'vue-router'
 
     import { onMounted, ref } from 'vue'
     const listsStore = useListsStore();
+
+    const route = useRoute();
+    const router = useRouter();
 
     const isOpened = ref(false);
 
     const newList = ref({
         title: undefined,
     })
+
+    const redirectToList = (id) => {
+        router.push({ name: 'list-view', params: {id} })
+        console.log(id)
+    }
 
     // const createNewList = async (title, description) => {
     //     if(description) {

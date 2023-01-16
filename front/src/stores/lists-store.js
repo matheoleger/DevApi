@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 // import { LocalStorage, SessionStorage } from 'quasar'
-import { getAllLists, createList, getListById } from 'src/services/lists'
+import { getAllLists, createList, getListById, deleteList, updateList } from 'src/services/lists'
 
 export const useListsStore = defineStore('lists', {
   state: () => ({
@@ -36,6 +36,14 @@ export const useListsStore = defineStore('lists', {
       await createList(newList)
 
       this.lists = await this.getLists();
+    },
+    async deleteList (listId) {
+      await deleteList(listId)
+
+      this.lists = await this.getLists();
+    },
+    async updateList (listId, params) {
+      await updateList(listId, params)
     }
   }
 })

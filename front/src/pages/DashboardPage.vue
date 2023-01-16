@@ -14,20 +14,21 @@
           <q-btn icon="more_horiz" flat round dense v-close-popup>
             <q-menu>
               <q-list style="min-width: 100px">
-                <q-item clickable v-close-popup>
+                <q-item clickable v-close-popup @click="() => redirectToList(list._id)">
                   <q-item-section>Voir</q-item-section>
                 </q-item>
                 <q-item clickable v-close-popup>
                   <q-item-section>Editer</q-item-section>
                 </q-item>
                 <q-separator />
-                <q-item clickable v-close-popup>
+                <q-item clickable v-close-popup @click="isDeleteListDialogOpened=true">
                   <q-item-section class="text-negative">Supprimer</q-item-section>
                 </q-item>
               </q-list>
             </q-menu>
           </q-btn>
         </div>
+        <DeleteList :listId="list._id" :isOpened="isDeleteListDialogOpened" @onCloseInParent="closeDeleteListDialog"/>
         <div v-if="list.tasks">
 
         </div>
@@ -45,12 +46,16 @@
   import { useListsStore } from 'src/stores/lists-store'
   import { useRoute, useRouter } from 'vue-router'
   import { onMounted } from 'vue'
+
+  import DeleteList from 'src/components/List/DeleteList.vue'
+
   const userStore = useUserStore();
   const listsStore = useListsStore();
   const route = useRoute();
   const router = useRouter();
 
   const lists = ref([])
+  const isDeleteListDialogOpened = ref(false)
 
   onMounted(async() => {
     userStore.user = await userStore.getUserProfile();
@@ -60,6 +65,14 @@
   const redirectToList = (id) => {
     router.push({ name: 'list-view', params: {id} })
     console.log(id)
+  }
+
+  const closeDeleteListDialog = () => {
+    isDeleteListDialogOpened.value = false;
+  }
+
+  const consoleLog = () => {
+    console.log("niquetamere")
   }
 
 </script>

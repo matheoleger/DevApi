@@ -12,10 +12,10 @@ export const createList = (params) => {
     return api.post("/lists", params)
 }
 
-export const deleteList = (params) => {
-    return api.delete("/lists/:id", params)
+export const deleteList = (id) => {
+    return api.delete(`/lists/${id}`)
 }
 
-export const updateList = (params) => {
-    return api.put("/lists/:id", params)
+export const updateList = (id, params) => {
+    return api.put(`/lists/${id}`, params)
 }
