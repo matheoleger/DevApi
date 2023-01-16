@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 // import { LocalStorage, SessionStorage } from 'quasar'
-import { updateTask } from 'src/services/tasks'
+import { updateTask, createTask } from 'src/services/tasks'
 
 
 export const useTasksStore = defineStore('tasks', {
@@ -19,6 +19,13 @@ export const useTasksStore = defineStore('tasks', {
     async updateTask(taskId, params) {
       try {
         await updateTask(taskId, params)
+      } catch(e) {
+        throw new Error(e)
+      }
+    },
+    async createTask(params) {
+      try {
+        await createTask(params)
       } catch(e) {
         throw new Error(e)
       }

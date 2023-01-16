@@ -63,6 +63,7 @@ const onDelete = async () => {
 
     try {
         await deleteTask(deleteTaskProps.taskId);
+        listsStore.lists = await listsStore.getLists(); 
         listsStore.currentList = await listsStore.getListById(deleteTaskProps.listId);
         tasksStore.currentTasks = listsStore.currentList.tasks
         tasksStore.splitTasks();

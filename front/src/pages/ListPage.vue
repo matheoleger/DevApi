@@ -21,8 +21,8 @@
           <DeleteList :isOpened="isOpenedDeleteDialog" :listId="route.params.id" @onCloseInParent="onCloseDeleteDialog" @onDeleteInParent="onDeleteList"/>
           <UpdateListForm :isOpened="isOpenedUpdateListDialog" :listId="route.params.id" :title="listsStore.currentList.title" @onCloseInParent="onCloseUpdateListDialog"/>
         </div>
-        <q-btn @click="isOpened = true" no-caps>+ Ajouter une tâche</q-btn>
-        <CreateTaskForm :isOpened="isOpened" :listId="route.params.id" @setIsClosed="setIsClosed"/>
+        <q-btn @click="isOpenedCreateListForm = true" no-caps>+ Ajouter une tâche</q-btn>
+        <CreateTaskForm :isOpened="isOpenedCreateListForm" :listId="route.params.id" @onCloseInParent="onCloseCreateListDialog"/>
         <div v-if="listsStore.currentList.tasks">
             <h4>Tâches - {{ tasksStore.tasksUnchecked.length }}</h4>
             <TaskItem 
@@ -40,6 +40,7 @@
                 v-for="(task, index) in tasksStore.tasksChecked" 
                 v-bind:key="index"
                 :id="task._id"
+                :listId="route.params.id"
                 :name="task.name"
                 :description="task.description"
                 :isCheckedInParent="task.isChecked"
@@ -65,16 +66,16 @@
     const listsStore = useListsStore();
     const tasksStore = useTasksStore();
 
-    const isOpened = ref(false)
+    const isOpenedCreateListForm = ref(false)
     const isOpenedDeleteDialog = ref(false)
     const isOpenedUpdateListDialog = ref(false)
 
     // const tasksUnchecked = ref([])
     // const tasksChecked = ref([])
 
-    // To close the dialog
-    const setIsClosed = () => {
-        isOpened.value = false;
+    // To close the create dialog
+    const onCloseCreateListDialog = () => {
+      isOpenedCreateListForm.value = false;
     }
 
     const onChecked = async (idOfTask, isChecked) => {
