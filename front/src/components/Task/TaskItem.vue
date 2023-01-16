@@ -14,7 +14,7 @@
         <q-btn icon="more_horiz" flat round dense v-close-popup>
             <q-menu>
               <q-list style="min-width: 100px">
-                <q-item clickable v-close-popup>
+                <q-item clickable v-close-popup @click="isOpenedUpdateDialog=true">
                   <q-item-section>Editer</q-item-section>
                 </q-item>
                 <q-separator />
@@ -25,6 +25,7 @@
             </q-menu>
         </q-btn>
         <DeleteTask :listId="listId" :taskId="id" :isOpened="isOpenedDeleteDialog" @onCloseInParent="onCloseDeleteDialog"/>
+        <UpdateTask :listId="listId" :taskId="id" :name="name" :description="description" :isOpened="isOpenedUpdateDialog" @onCloseInParent="onCloseUpdateDialog"/>
     </div>
 </template>
 <script setup>
@@ -32,10 +33,11 @@
 import {onMounted, ref, watch} from "vue"
 
 import DeleteTask from "src/components/Task/DeleteTask.vue"
-
+import UpdateTask from "src/components/Task/UpdateTaskForm.vue"
 
 const isChecked = ref(taskProps.isCheckedInParent);
 const isOpenedDeleteDialog = ref(false);
+const isOpenedUpdateDialog = ref(false);
 
 const emit = defineEmits(['onChecked'])
 const taskProps = defineProps({
@@ -63,6 +65,10 @@ const taskProps = defineProps({
 
 const onCloseDeleteDialog = () => {
   isOpenedDeleteDialog.value = false;
+}
+
+const onCloseUpdateDialog = () => {
+  isOpenedUpdateDialog.value = false;
 }
 
 onMounted(() => {

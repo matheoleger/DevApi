@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 // import { LocalStorage, SessionStorage } from 'quasar'
+import { updateTask } from 'src/services/tasks'
 
 
 export const useTasksStore = defineStore('tasks', {
@@ -14,6 +15,13 @@ export const useTasksStore = defineStore('tasks', {
     splitTasks() {
         this.tasksUnchecked = this.currentTasks.filter(task => !task.isChecked)
         this.tasksChecked = this.currentTasks.filter(task => task.isChecked)
+    },
+    async updateTask(taskId, params) {
+      try {
+        await updateTask(taskId, params)
+      } catch(e) {
+        throw new Error(e)
+      }
     }
   }
 })

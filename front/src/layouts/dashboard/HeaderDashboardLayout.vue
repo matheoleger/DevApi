@@ -2,13 +2,11 @@
       <q-header elevated class="bg-white text-black">
         <q-toolbar>
           <q-toolbar-title>
-            <q-avatar>
-              <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-black.svg">
+            <q-avatar rounded>
+              <img v-bind:src="'src/assets/logo.png'">
             </q-avatar>
           </q-toolbar-title>
-          <q-toolbar-title>
-            
-          </q-toolbar-title>
+          <a href="/#/dashboard">Tableau de bord</a>
         </q-toolbar>
       </q-header>
 </template>

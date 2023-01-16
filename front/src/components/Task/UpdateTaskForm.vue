@@ -7,7 +7,8 @@
             <q-btn icon="close" flat round dense v-close-popup/>
             </q-card-section>
             <q-card-section>
-                <q-input label="Title" v-model="modifiedList.title"/>
+                <q-input label="Nom" v-model="modifiedTask.name"/>
+                <q-input label="Description" v-model="modifiedTask.description"/>
             </q-card-section>
             <q-card-section>
                 <q-btn @click="onUpdate">Modifier</q-btn>
@@ -19,19 +20,22 @@
 
 import {ref, watch} from "vue"
 import { useListsStore } from 'src/stores/lists-store';
-import { updateList } from "src/services/lists";
+import { useTasksStore } from 'src/stores/tasks-store';
 
 const listsStore = useListsStore();
+const tasksStore = useTasksStore();
 
-const modifiedList = ref({
-    title: modifiedListProps.title
+
+const modifiedTask = ref({
+    name: modifiedTaskProps.name,
+    description: modifiedTaskProps.description
 })
 
-const isShown = ref(modifiedListProps.isOpened);
+const isShown = ref(modifiedTaskProps.isOpened);
 
 const emit = defineEmits(['onCloseInParent', 'onUpdateInParent'])
 
-const modifiedListProps = defineProps({
+const modifiedTaskProps = defineProps({
     listId: {
         type: String,
         required: true,
@@ -55,16 +59,22 @@ const modifiedListProps = defineProps({
     }
 })
 
-watch(() => modifiedListProps.isOpened, (isOpenedInParent, prevIsOpened) => {
+watch(() => modifiedTaskProps.isOpened, (isOpenedInParent, prevIsOpened) => {
     console.log("oui je watch", isOpenedInParent)
     isShown.value = isOpenedInParent;
-    modifiedList.value.title = modifiedListProps.title
+    modifiedTask.value.name = modifiedTaskProps.name
+    modifiedTask.value.description = modifiedTaskProps.description
 })
 
 const onUpdate = async () => {
-    await listsStore.updateList(modifiedListProps.listId, modifiedList.value);
+    console.log(modifiedTask.value)
+    await tasksStore.updateTask(modifiedTaskProps.taskId, modifiedTask.value);
     listsStore.lists = await listsStore.getLists(); 
-    listsStore.currentList = await listsStore.getListById(modifiedListProps.listId);
+    listsStore.currentList = await listsStore.getListById(modifiedTaskProps.listId);
+    tasksStore.currentTasks = listsStore.currentList.tasks;
+    tasksStore.splitTasks();
+
+    onClose()
 }
 
 const onClose = () => {
