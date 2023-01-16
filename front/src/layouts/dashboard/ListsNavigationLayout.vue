@@ -10,8 +10,13 @@
         </div>
         <div class="text-bold">
             <div v-if="listsStore.lists && listsStore.lists.length">
-                <div v-for="(list, index) in listsStore.lists" v-bind:key="index" class="cursor-pointer list-element" @click="() => redirectToList(list._id)">
-                    <p class="list-title">{{ list.title }}</p>
+                <div v-for="(list, index) in listsStore.lists" v-bind:key="index" >
+                    <div v-if="list._id == route.params.id" class="cursor-pointer list-element list-element-selected" @click="() => redirectToList(list._id)">
+                        <p class="list-title">{{ list.title }}</p>
+                    </div>
+                    <div v-else class="cursor-pointer list-element" @click="() => redirectToList(list._id)">
+                        <p class="list-title">{{ list.title }}</p>
+                    </div>
                 </div>
             </div>
             <p v-else>
@@ -79,5 +84,10 @@
 
     .list-element:hover {
         background-color: $gray-4;
+    }
+
+    .list-element-selected {
+        background-color: $gray-4;
+        color: $purple;
     }
 </style>

@@ -3,9 +3,10 @@
     <h1 class="text-weight-bold">
         Hello {{userStore.fullName}} !👋
     </h1>
-    <div v-if="!lists" class="no-lists">
+    <div v-if="!listsStore.lists.length || !listsStore.lists" class="no-lists">
       <p>Tu n'as aucune liste de tâche pour le moment créer en une en cliquant sur le bouton ci-dessous dans le menu pour débuter</p>
-      <q-btn class="create-list-btn q-py-sm text-weight-bold" no-caps>Créer une liste</q-btn>
+      <q-btn class="create-list-btn q-py-sm text-weight-bold" no-caps @click="isOpenedCreateListForm=true">Créer une liste</q-btn>
+      <CreateListForm :isOpened="isOpenedCreateListForm" @onCloseInParent="onCloseCreateListForm"/>
     </div>
     <div v-else>
       <DashboardListItem 
@@ -25,6 +26,7 @@
   import { useRoute, useRouter } from 'vue-router'
 
   import DashboardListItem from 'src/components/DashboardListItem.vue'
+  import CreateListForm from 'src/components/List/CreateListForm.vue';
 
   const userStore = useUserStore();
   const listsStore = useListsStore();
@@ -35,6 +37,8 @@
   const lists = ref([])
   const isDeleteListDialogOpened = ref(false)
   const isOpenedUpdateListDialog = ref(false)
+
+  const isOpenedCreateListForm = ref(false)
 
   const isChecked = ref(false)
 
@@ -59,6 +63,10 @@
   const onChangeIsChecked = async (taskId, params) => {
     console.log("bonsoir oui ?", params)
     await tasksStore.updateTask(taskId, params)
+  }
+
+  const onCloseCreateListForm = () => {
+    isOpenedCreateListForm.value = false
   }
 
 </script>
