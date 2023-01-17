@@ -46,7 +46,6 @@
 
     const redirectToList = (id) => {
         router.push({ name: 'list-view', params: {id} })
-        console.log(id)
     }
 
     // const createNewList = async (title, description) => {
@@ -75,7 +74,6 @@
 
     .list-element {
         padding: 1em;
-        // margin: 0 35px; 
     }
 
     .list-title {

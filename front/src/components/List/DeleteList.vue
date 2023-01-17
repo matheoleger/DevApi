@@ -39,7 +39,6 @@ const deleteListProps = defineProps({
 })
 
 watch(() => deleteListProps.isOpened, (isOpenedInParent, prevIsOpened) => {
-    console.log("oui je watch", isOpenedInParent)
     isShown.value = isOpenedInParent;
 })
 
@@ -49,7 +48,6 @@ const onClose = () => {
 }
 
 const onDelete = async () => {
-    console.log({id: deleteListProps.listId})
     await listsStore.deleteList(deleteListProps.listId);
     emit('onDeleteInParent')
     onClose()

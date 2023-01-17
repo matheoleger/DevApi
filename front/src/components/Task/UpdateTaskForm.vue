@@ -28,7 +28,7 @@ const tasksStore = useTasksStore();
 
 const modifiedTask = ref({
     name: modifiedTaskProps.name,
-    description: modifiedTaskProps.description
+    description: undefined
 })
 
 const isShown = ref(modifiedTaskProps.isOpened);
@@ -60,14 +60,17 @@ const modifiedTaskProps = defineProps({
 })
 
 watch(() => modifiedTaskProps.isOpened, (isOpenedInParent, prevIsOpened) => {
-    console.log("oui je watch", isOpenedInParent)
     isShown.value = isOpenedInParent;
     modifiedTask.value.name = modifiedTaskProps.name
-    modifiedTask.value.description = modifiedTaskProps.description
+    modifiedTask.value.description = modifiedTaskProps.description || undefined
 })
 
 const onUpdate = async () => {
-    console.log(modifiedTask.value)
+
+    if(!modifiedTask.value.description) {
+        modifiedTask.value.description = undefined
+    }
+
     await tasksStore.updateTask(modifiedTaskProps.taskId, modifiedTask.value);
     listsStore.lists = await listsStore.getLists(); 
     listsStore.currentList = await listsStore.getListById(modifiedTaskProps.listId);

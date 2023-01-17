@@ -66,7 +66,6 @@ const dashboardListItemProps = defineProps({
 
 const redirectToList = (id) => {
     router.push({ name: 'list-view', params: {id} })
-    console.log(id)
 }
 
 const closeDeleteListDialog = () => {
@@ -78,8 +77,7 @@ const onCloseUpdateListDialog = () => {
 }
 
 const onChangeIsChecked = async (taskId, params) => {
-console.log("bonsoir oui ?", params)
-await tasksStore.updateTask(taskId, params)
+  await tasksStore.updateTask(taskId, params)
 }
 </script>
 <style lang="scss">

@@ -39,9 +39,7 @@ export const useUserStore = defineStore('user', {
     async getUserProfile () {
 
       try {
-        // this.user = userInformations;
         const res = await getUserProfile()
-        // console.log(res.data.profile);
         return {firstName: res.data.profile.firstName, lastName: res.data.profile.lastName, email: res.data.profile.email, id: res.data.profile._id}
       } catch(e) {
         LocalStorage.clear()

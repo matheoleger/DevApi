@@ -72,10 +72,6 @@
     const isOpenedDeleteDialog = ref(false)
     const isOpenedUpdateListDialog = ref(false)
 
-    // const tasksUnchecked = ref([])
-    // const tasksChecked = ref([])
-
-    // To close the create dialog
     const onCloseCreateListDialog = () => {
       isOpenedCreateListForm.value = false;
     }
@@ -94,16 +90,11 @@
     }
 
     onMounted(async () => {
-
         const id = route.params.id
-
-        console.log({id})
 
         listsStore.currentList = await listsStore.getListById(id)
         tasksStore.currentTasks = listsStore.currentList.tasks
         tasksStore.splitTasks();
-        console.log(listsStore.currentList)
-        // splitTasks(listsStore.currentList.tasks)
     })
 
     const onCloseDeleteDialog = () => {
@@ -118,28 +109,8 @@
       router.push({ name: 'dashboard'})
     }
 
-    // const splitTasks = (tasks) => {
-    //     tasksUnchecked.value = tasks.filter(task => !task.isChecked)
-    //     tasksChecked.value = tasks.filter(task => task.isChecked)
-    // }
-
 </script>
 <style lang="scss">
-//   .dashboard-list {
-//     width: 33em;
-//     border-radius: 10px;
-//     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.14);
-//   }
-
-//   .dashboard-list-title {
-//     background-color: $gray-6;
-//     border-radius: 10px 10px 0px 0px;
-//   }
-
-//   .dashboard-list-title h3 {
-//     margin: 0.8em;
-//   }
-
 .btn-return {
   margin: 0 20px;
   background-color: $gray-6;

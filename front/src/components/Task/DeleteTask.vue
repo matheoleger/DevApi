@@ -46,7 +46,6 @@ const deleteTaskProps = defineProps({
 })
 
 watch(() => deleteTaskProps.isOpened, (isOpenedInParent, prevIsOpened) => {
-    console.log("oui je watch", isOpenedInParent)
     isShown.value = isOpenedInParent;
 })
 
@@ -56,9 +55,6 @@ const onClose = () => {
 }
 
 const onDelete = async () => {
-    console.log({id: deleteTaskProps.taskId})
-    // await listsStore.deleteList(deleteTaskProps.listId);
-
     try {
         await deleteTask(deleteTaskProps.taskId);
         listsStore.lists = await listsStore.getLists(); 

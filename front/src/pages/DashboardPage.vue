@@ -50,7 +50,6 @@
 
   const redirectToList = (id) => {
     router.push({ name: 'list-view', params: {id} })
-    console.log(id)
   }
 
   const closeDeleteListDialog = () => {
@@ -62,7 +61,6 @@
     }
 
   const onChangeIsChecked = async (taskId, params) => {
-    console.log("bonsoir oui ?", params)
     await tasksStore.updateTask(taskId, params)
   }
 

@@ -48,7 +48,6 @@ const modifiedListProps = defineProps({
 })
 
 watch(() => modifiedListProps.isOpened, (isOpenedInParent, prevIsOpened) => {
-    console.log("oui je watch", isOpenedInParent)
     isShown.value = isOpenedInParent;
     modifiedList.value.title = modifiedListProps.title
 })

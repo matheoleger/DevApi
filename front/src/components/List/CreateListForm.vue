@@ -18,10 +18,8 @@
 <script setup>
 import {ref, watch} from "vue"
 import { useListsStore } from 'src/stores/lists-store';
-// import { useTasksStore } from 'src/stores/tasks-store';
 
 const listsStore = useListsStore();
-// const tasksStore = useTasksStore();
 
 const newList = ref({
     title: ""
@@ -40,12 +38,10 @@ const createListFormProps = defineProps({
 })
 
 watch(() => createListFormProps.isOpened, (isOpenedInParent, prevIsOpened) => {
-    console.log("oui je watch", isOpenedInParent)
     isShown.value = isOpenedInParent;
 })
 
 const onCreate = async () => {
-    console.log(newList.value)
     await listsStore.createNewList(newList.value);
     listsStore.lists = await listsStore.getLists(); 
 

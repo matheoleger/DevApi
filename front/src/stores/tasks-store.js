@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-// import { LocalStorage, SessionStorage } from 'quasar'
 import { updateTask, createTask } from 'src/services/tasks'
 
 

@@ -71,15 +71,6 @@ const onCloseUpdateDialog = () => {
   isOpenedUpdateDialog.value = false;
 }
 
-onMounted(() => {
-  console.log({id: taskProps.id})
-})
-
-// // Change value of isChecked in terms of isCheckedInParent
-// watch(taskProps.isChecked, (isCheckedInParent, prevIsCheckedInParent) => {
-//   isChecked.value = isCheckedInParent;
-// })
-
 </script>
 <style lang="scss">
   .task-item {
