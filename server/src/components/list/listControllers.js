@@ -10,7 +10,8 @@ export async function getLists(ctx) {
         .aggregate()
         .match({ user: { $eq: ctx.state.user._id}})
         .lookup({ from: 'tasks', localField: '_id', foreignField: 'list', as: 'tasks' })
-        
+        .sort({tasks: -1})
+
         ctx.body = lists
 
     } catch(e) {

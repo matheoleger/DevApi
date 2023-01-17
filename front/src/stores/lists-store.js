@@ -10,7 +10,9 @@ export const useListsStore = defineStore('lists', {
   getters: {
     listsByAscending: (state) => {
       const lists = state.lists
+      lists.sort((a,b) =>  new Date(b.tasks[0].updatedAt) - new Date(a.tasks[0].updatedAt))
 
+      console.log({lists})
       return lists
     }
   },

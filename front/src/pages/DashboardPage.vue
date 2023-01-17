@@ -9,6 +9,7 @@
       <CreateListForm :isOpened="isOpenedCreateListForm" @onCloseInParent="onCloseCreateListForm"/>
     </div>
     <div v-else>
+      <p class="text-h5">Voici les dernières tâches que tu as ajoutés</p>
       <DashboardListItem 
         v-for="(list, index) in listsStore.lists" 
         v-bind:key="index" 
@@ -44,7 +45,7 @@
 
   onMounted(async() => {
     userStore.user = await userStore.getUserProfile();
-    lists.value = listsStore.listsByAscending();
+    lists.value = listsStore.lists;
   })
 
   const redirectToList = (id) => {
@@ -96,5 +97,6 @@
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.14);
     margin-top: 40px;
+    padding-bottom: 1em;
   }
 </style>

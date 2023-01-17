@@ -10,7 +10,7 @@
                 <q-input label="Title" v-model="modifiedList.title"/>
             </q-card-section>
             <q-card-section>
-                <q-btn @click="onUpdate">Modifier</q-btn>
+                <q-btn @click="onUpdate" class="purple-btn-inline" no-caps>Modifier</q-btn>
             </q-card-section>
         </q-card>
     </q-dialog>     

@@ -16,7 +16,7 @@ const listSchema = new Schema({
         ref: 'User'
     }
 }, {
-    timestamp: true
+    timestamps: true
 })
 
 listSchema.static({

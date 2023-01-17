@@ -58,7 +58,7 @@ const isOpenedUpdateListDialog = ref(false)
 
 const dashboardListItemProps = defineProps({
     list: {
-        type: String,
+        type: Object,
         required: true
     },
 
@@ -105,7 +105,7 @@ await tasksStore.updateTask(taskId, params)
 }
 
 .show-list-btn {
-  margin-top: 10px;
+  margin-top: 20px;
   background-color: $purple;
   color: white;
   font-weight: 700;

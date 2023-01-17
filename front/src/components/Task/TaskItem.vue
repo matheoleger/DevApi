@@ -1,14 +1,14 @@
 <template>
     <div class="flex items-center task-item justify-between">
         <div class="flex">
-          <q-checkbox v-model="isChecked" @click="emit('onChecked', id, isChecked)"/>
+          <q-checkbox v-model="isChecked" @click="emit('onChecked', id, isChecked)" color="teal"/>
           <div v-if="isChecked" style="margin-left: 20px; margin-top: 8px; margin-bottom: 0;">
-            <h6 class="q-my-sm text-strike">{{ name }}</h6>
-            <p class="text-strike">{{ description }}</p>
+            <h6 style="margin: 0;" class="q-my-sm text-strike">{{ name }}</h6>
+            <p class="text-strike task-desc">{{ description }}</p>
           </div>
           <div v-else style="margin-left: 20px; margin-top: 8px; margin-bottom: 0;">
-            <h6 class="q-my-sm">{{ name }}</h6>
-            <p>{{ description }}</p>
+            <h6 style="margin: 0;" class="q-my-sm text-h6">{{ name }}</h6>
+            <p class="task-desc">{{ description }}</p>
           </div>
         </div>
         <q-btn icon="more_horiz" flat round dense v-close-popup>
@@ -87,5 +87,9 @@ onMounted(() => {
     background-color: $gray-6;
     border-radius: 10px;
     margin-top: 20px;
+  }
+
+  .task-desc {
+    color: $gray-3;
   }
 </style>

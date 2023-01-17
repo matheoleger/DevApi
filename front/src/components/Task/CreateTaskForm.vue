@@ -11,7 +11,7 @@
                 <q-input label="Description (optionel)" v-model="newTask.description"/>
             </q-card-section>
             <q-card-section>
-                <q-btn @click="onCreate">Créer</q-btn>
+                <q-btn @click="onCreate" class="purple-btn-inline" no-caps>Créer</q-btn>
             </q-card-section>
         </q-card>
     </q-dialog>

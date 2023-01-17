@@ -10,7 +10,7 @@
                 <q-input label="Titre" v-model="newList.title"/>
             </q-card-section>
             <q-card-section>
-                <q-btn @click="onCreate">Créer</q-btn>
+                <q-btn @click="onCreate" class="purple-btn-inline" no-caps>Créer</q-btn>
             </q-card-section>
         </q-card>
     </q-dialog>
